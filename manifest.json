@@ -1,0 +1,25 @@
+{
+  "name": "Sparkle Art",
+  "short_name": "SparkleArt",
+  "description": "A creative diamond painting game. Upload your own images or use sticker packs to fill your sticker books.",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#6ec6ff",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "scope": ".",
+  "id": "/",
+  "prefer_related_applications": false
+}
