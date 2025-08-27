@@ -12,6 +12,7 @@ const SIZE_MAP = {
   60: 60,
   100: 100
 };
+const LS_KEY = "diamondPaintingSave";
 
 // --- State ---
 let currentColor = COLOR_HEXES[0];
@@ -24,6 +25,9 @@ const colorPickerEl = document.getElementById("colorPicker");
 const gridSizeEl = document.getElementById("gridSize");
 const uploadBtn = document.getElementById("uploadImage");
 const imageInput = document.getElementById("imageInput");
+const saveBtn = document.getElementById("saveArt");
+const loadBtn = document.getElementById("loadArt");
+const statusEl = document.getElementById("statusMsg");
 
 // --- Init ---
 function init() {
@@ -38,6 +42,18 @@ function init() {
   gridEl.addEventListener("touchstart", handleGridClick, {passive: false});
   uploadBtn.addEventListener("click", () => imageInput.click());
   imageInput.addEventListener("change", handleImageUpload);
+
+  
+  saveBtn.addEventListener("click", handleSave);
+  loadBtn.addEventListener("click", handleLoad);
+  
+  
+  if (hasSavedArt()) {
+    statusMsg("Autosave found. Click 'Load' to restore.");
+    loadBtn.disabled = false;
+  } else {
+    loadBtn.disabled = true;
+  }
 }
 
 function renderColorPicker() {
@@ -164,6 +180,52 @@ function hexToRgb(hex) {
     parseInt(h.substr(2,2),16),
     parseInt(h.substr(4,2),16)
   ];
+}
+
+
+function handleSave() {
+  try {
+    const saveObj = {
+      gridSize,
+      gridData,
+      time: Date.now()
+    };
+    localStorage.setItem(LS_KEY, JSON.stringify(saveObj));
+    statusMsg("Artwork saved!");
+    loadBtn.disabled = false;
+  } catch(e) {
+    statusMsg("Save Failed: " + e.message);
+  }
+}
+
+function handleLoad() {
+  try {
+    const data = localStorage.getItem(LS_KEY);
+    if (!data) {
+      statusMsg("No savedartwork found.");
+      return;
+    }
+    const saveObj = JSON.parse(data);
+    if (!saveObj.gridSize || !saveObj.gridData) throw new Error("Corrupt save.");
+    gridSize = saveObj.gridSize;
+    gridSizeEl.value = gridSize;
+    gridData = saveObj.gridData;
+    renderGrid();
+    statusMsg("Artwork loaded!");
+  } catch(e) {
+    statusMsg("Load Failed: " + e.message);
+  }
+}
+
+function hasSavedArt() {
+  return !!localStorage.getItem(LS_KEY);
+}
+
+function statusMsg(msg) {
+  if (!statusEl) return;
+  statusEl.innerText = msg;
+  statusEl.style.opacity = 1;
+  setTimeout(() => { statusEl.style.opacity = 0.3; }, 2800);
 }
 
 // --- Ready ---

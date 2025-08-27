@@ -2,45 +2,37 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
     <title>Sparkle Art</title>
     <link rel="manifest" href="manifest.json">
-    <meta name="theme_color" content="#6ec6ff" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
     <header>
       <h1>Sparkle Art</h1>
       <div class="controls">
-        <button id="uploadImage">Upload Image</button>
-        <button id="buyStickers">Buy Sticker Packs</button>
+        <label for="gridSize">Grid size:
         <select id="gridSize">
           <option value="20">Easy (20x20)</option>
           <option value="40">Medium (40x40)</option>
           <option value="60">Hard (60x60)</option>
           <option value="100">Ultra (100x100)</option>
         </select>
+      </label>
+        <button id="uploadImage">Import Image</button>
+        <input type="file" id="imageInput" accept="image/*" style="display:none;">
+        <button id="saveArt">Save</button>
+        <button id="loadArt">Load</button>
       </div>
+      <div id="colorPicker" class="color-picker"></div>
+      <div id="statusMsg" style="margin-top:0.5em; min-height:1.4em; color:#222; opacity:0.3; transition:opacity 0.3s;"></div>
     </header>
     <main>
-      <div id="colorPicker" class="color-picker">
-        
-      </div>
-      <div id="gameGrid" class="game-grid">
-        
-      </div>
+      <div id="gameGrid" class="game-grid"></div>
     </main>
     <footer>
-      <p>Made with ❤️ for diamond painting fans!</p>
+      &copy; 2025 Sparkle Art | PWA Prototype
     </footer>
-    <input type="file" id="imageInput" accept="image/*" style="display:none">
     <script src="app.js"></script>
-    <script>
-      if ('serviceWorker' in navigator) {
-        window.addEventListener('load', () => {
-          navigator.serviceWorker.register('service-worker.js');
-        });
-      }
-      </script>
       </body>
       </html>
