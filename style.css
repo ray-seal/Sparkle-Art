@@ -1,0 +1,142 @@
+:root {
+  --primary: #6ec6ff;
+  --accent: #42a5f5;
+  --background: #fff;
+  --grid-bg: #f5f7fa;
+  --cell-border: #cfd8dc;
+  --cell-size: 24px;
+  --cell-size-ultra: 10px;
+}
+
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background: var(--background);
+  color: #222;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+header {
+  background: var(--primary);
+  color: #fff;
+  padding: 1rem;
+  box-shadow: 0 2px 8px #0001;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+
+.controls {
+  margin-top: 1rem;
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.controls button,
+.controls select {
+  font-size: 1rem;
+  padding: 0.5em 1em;
+  border: none;
+  border-radius: 6px;
+  background: var(--accent);
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.controls button:hover,
+.controls select:focus {
+  background: #1976d2;
+}
+
+main {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem 1rem 1rem 1rem;
+}
+
+.color-picker {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.5rem;
+  justify-content: center;
+}
+
+.color-picker button {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 2px solid #bbb;
+  outline: none;
+  cursor: pointer;
+  margin: 2px;
+  transition: border-color 0.2s;
+}
+
+.color-picker button.selected,
+.color-picker button:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px var(--primary)33;
+}
+
+.game-grid {
+  display: grid;
+  background: var(--grid-bg);
+  border: 2px solid var(--primary);
+  box-shadow: 0 2px 12px #0002;
+  margin: 0 auto;
+  overflow: auto;
+  max-width: 100vw;
+  max-height: 65vh;
+  /* Grid template columns/rows are set by JS */
+}
+
+.grid-cell {
+  width: var(--cell-size);
+  height: var(--cell-size);
+  background: #fff;
+  border: 1px solid var(--cell-border);
+  box-sizing: border-box;
+  cursor: pointer;
+  transition: background 0.15s;
+  user-select: none;
+}
+
+.grid-cell.filled {
+  box-shadow: 0 2px 5px #0001 inset;
+}
+
+@media (max-width: 600px) {
+  header h1 { font-size: 1.3rem; }
+  .controls button, .controls select { font-size: 0.9rem; padding: 0.4em 0.8em; }
+  main { padding: 1rem 0.3rem; }
+  .game-grid { max-height: 50vh; }
+  .color-picker button { width: 24px; height: 24px; }
+}
+
+footer {
+  background: #ececec;
+  color: #555;
+  text-align: center;
+  padding: 0.8rem;
+  font-size: 1rem;
+  border-top: 1px solid #ddd;
+}
+
+@media (max-width: 400px) {
+  .controls { flex-direction: column; gap: 0.5rem; }
+}
